@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: guacamole-app
+  namespace: netboot-guacamole
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: guacamole
+        tier: frontend
+    spec:
+      containers:
+      - name: guacamole-app
+        image: guacamole/guacamole
+        imagePullPolicy: Always
+        env:
+        - name: GUACD_HOSTNAME
+          value: "guacamole-daemon"
+        - name: GUACD_PORT
+          value: "4822"
+        - name: MYSQL_PORT
+          value: "3306"
+        - name: MYSQL_HOSTNAME
+          value: "guacamole-db"
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: guacamole
+              key: database
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: guacamole
+              key: user_login
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: guacamole
+              key: user_password
+        ports:
+        - name: guacamole-app
+          containerPort: 8080
