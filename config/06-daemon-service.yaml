@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: guacamole-daemon
+  namespace: netboot-guacamole
+  labels:
+    app: guacamole
+    tier: backend
+spec:
+  ports:
+    - name: guacamole-daemon
+      port: 4822
+      targetPort: 4822
+      protocol: TCP
+  selector:
+    run: guacamole-daemon
