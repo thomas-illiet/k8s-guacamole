@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guacamole-daemon
+  namespace: netboot-guacamole
+spec:
+  selector:
+    matchLabels:
+      run: guacamole-daemon
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: guacamole-daemon
+    spec:
+      containers:
+      - name: guacamole-daemon
+        image:  guacamole/guacd
+        ports:
+        - containerPort: 4822
