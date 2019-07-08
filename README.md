@@ -6,6 +6,10 @@ Apache Guacamole is a clientless HTML5 web based remote desktop gateway that mak
 
 In this repository, we are going to learn how to setup Guacamole web-based remote desktop access tool on Kubernetes server.
 
+You can see below a simple demo of Guacamole :
+
+[![Watch the video](assets/k8s-guacamole-preview.png)](https://youtu.be/AjuHJHtd4zU)
+
 ## Install required dependencies
 
 This Guacamole configuration use [cert-manager](https://github.com/thomas-illiet/k8s-infrastructure/tree/master/config/cert-manager) and [ingress-nginx](https://github.com/thomas-illiet/k8s-infrastructure/tree/master/config/ingress-nginx), the configuration of these are stored in my [kubernetes infrastructure](https://github.com/thomas-illiet/k8s-infrastructure/) repository.
