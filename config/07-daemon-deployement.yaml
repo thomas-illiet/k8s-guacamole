@@ -18,3 +18,13 @@ spec:
         image:  guacamole/guacd
         ports:
         - containerPort: 4822
+        readinessProbe:
+          tcpSocket:
+            port: 4822
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 4822
+          initialDelaySeconds: 15
+          periodSeconds: 20
