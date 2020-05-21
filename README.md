@@ -1,18 +1,50 @@
 # K8S Guacamole
 
-![banner](assets/k8s-guacamole-banner.png)
+![banner](meta/k8s-guacamole-banner.png)
 
 Apache Guacamole is a clientless HTML5 web based remote desktop gateway that makes it easy to access remote servers and desktops through a web browser. It supports standard protocols like VNC, RDP, and SSH.
 
 In this repository, we are going to learn how to setup Guacamole web-based remote desktop access tool on Kubernetes server.
 
+Kubernetes is fast developing and this deployment will target `kubernetes 1.16.x`.
+
 You can see below a simple demo of Guacamole :
 
-[![Watch the video](assets/k8s-guacamole-preview.png)](https://youtu.be/AjuHJHtd4zU)
+[![Watch the video](meta/k8s-guacamole-preview.png)](https://youtu.be/AjuHJHtd4zU)
 
-## Install required dependencies
+## Image Usage
 
-This Guacamole configuration use [cert-manager](https://github.com/thomas-illiet/k8s-infrastructure/tree/master/config/cert-manager) and [ingress-nginx](https://github.com/thomas-illiet/k8s-infrastructure/tree/master/config/ingress-nginx), the configuration of these are stored in my [kubernetes infrastructure](https://github.com/thomas-illiet/k8s-infrastructure/) repository.
+Images are fetched from Docker's image repo:
+
+Guacamole: 1.1.0
+
+* https://hub.docker.com/u/guacamole - Base
+
+* https://hub.docker.com/r/guacamole/guacamole  - guacamole/guacamole:1.1.0
+* https://hub.docker.com/r/guacamole/guacd  - guacamole/guacd:1.1.0
+
+MariaDB (MySQL Clone): 10.5.3
+
+* https://hub.docker.com/_/mariadb/ - mariadb:10.5.3
+
+## Install on D2iQ Konvoy
+
+https://d2iq.com/solutions/ksphere/konvoy#request-free-trial
+
+`konvoy up -y`
+
+## (Deprecated) Install required dependencies via orginal fork.
+
+The Original Fork used Thomas Illiets setup. 
+
+This Guacamole configuration uses 
+
+[cert-manager](https://github.com/thomas-illiet/k8s-infrastructure/tree/master/config/cert-manager)
+[ingress-nginx](https://github.com/thomas-illiet/k8s-infrastructure/tree/master/config/ingress-nginx)
+
+configuration of these are stored in my 
+
+[kubernetes infrastructure](https://github.com/thomas-illiet/k8s-infrastructure/) repository.
 
 ## Initializing the MySQL database
 
@@ -49,7 +81,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: guacamole-oauth2
-  namespace: netboot-guacamole
+  namespace: guacamole
 spec:
   tls:
   - hosts:

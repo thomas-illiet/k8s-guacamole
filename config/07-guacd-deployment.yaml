@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guacamole-daemon
+  namespace: guacamole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: guacamole-daemon
+  template:
+    metadata:
+      labels:
+        run: guacamole-daemon
+    spec:
+      containers:
+        - name: guacamole-daemon
+          image: guacamole/guacd:1.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4822
+          readinessProbe:
+            tcpSocket:
+              port: 4822
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 4822
+            initialDelaySeconds: 15
+            periodSeconds: 20

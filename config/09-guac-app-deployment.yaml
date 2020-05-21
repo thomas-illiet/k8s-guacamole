@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guacamole-app
+  namespace: guacamole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: guacamole
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: guacamole
+        tier: frontend
+    spec:
+      containers:
+        - name: guacamole-app
+          image: guacamole/guacamole:1.1.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: GUACD_HOSTNAME
+              value: "guacamole-daemon"
+            - name: GUACD_PORT
+              value: "4822"
+            - name: MYSQL_PORT
+              value: "3306"
+            - name: MYSQL_HOSTNAME
+              value: "guacamole-db"
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole
+                  key: database
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole
+                  key: user_login
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole
+                  key: user_password
+          ports:
+            - name: guacamole-app
+              containerPort: 8080
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
