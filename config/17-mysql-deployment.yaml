@@ -18,9 +18,13 @@ spec:
         tier: backend
     spec:
       containers:
-        - image: mariadb:10.5.3
+        - name: guacamole-db
+          image: mariadb:10.5.3
           imagePullPolicy: IfNotPresent
-          name: guacamole-db
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", /opt/poststart.sh]
           env:
             - name: MYSQL_USER
               valueFrom:
@@ -41,7 +45,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: guacamole
-                  key: root_password
+                  key: mysql_root_password
           ports:
             - name: guacamole-db
               containerPort: 3306
@@ -60,7 +64,14 @@ spec:
           volumeMounts:
             - name: mysql-persistent-storage
               mountPath: "/var/lib/mysql"
+            - name: hookvolume
+              mountPath: /opt/poststart.sh
+              subPath: poststart.sh
       volumes:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
             claimName: sqldb-storage
+        - name: hookvolume
+          configMap:
+            name: poststarthook
+            defaultMode: 0755
