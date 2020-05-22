@@ -52,6 +52,15 @@ If your database is not already initialized with the Guacamole schema, you will 
 
 run this command in your kubernetes worker to generate a SQL script :
 
+kubectl exec -it guacamole-db-d9f4787d5-r4mm9 --namespace guacamole -- /bin/bash
+
+The initcontainer on `guacamole-app`:
+
+```bash
+$> kubectl exec -it guacamole-app-7bbffc9b4c-fs5fv --namespace guacamole -c guacamole-init -- /bin/sh
+init-container $> 
+```
+
 ```bash
 docker exec -i <APP CONTAINER ID> /opt/guacamole/bin/initdb.sh --mysql > /tmp/initdb.sql
 ```

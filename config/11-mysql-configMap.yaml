@@ -5,5 +5,5 @@ metadata:
   name: poststarthook
 data:
   poststart.sh: |
-    #!/bin/bash
-    echo "It`s done"
+    #!/bin/sh
+    echo "It is done"

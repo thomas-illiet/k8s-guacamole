@@ -15,6 +15,11 @@ spec:
         app: guacamole
         tier: frontend
     spec:
+      initContainers:
+        - name: guacamole-init
+          image: busybox
+          command: ["/bin/sh", "-c", "--"]
+          args: ["while :; do :; done & kill -STOP $! && wait $!"]
       containers:
         - name: guacamole-app
           image: guacamole/guacamole:1.1.0
