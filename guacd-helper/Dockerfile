@@ -33,6 +33,6 @@ RUN set -ex && \
 
 USER d2iq:d2iq
 
-#RUN /usr/bin/mysql 
+# mysql -h $MYSQL_HOSTNAME -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE < /opt/schemas/001-create-schema.sql
 
-CMD ["/usr/bin/mysql"]
+CMD ["sh", "-c", "/usr/bin/mysql -h ${MYSQL_HOSTNAME} -u ${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE} < /opt/schemas/001-create-schema.sql"]

@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    traefik.frontend.rule.type: PathPrefixStrip
+  name: guacamole-ingress
+  namespace: guacamole
+  labels:
+    app: guacamole
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              serviceName: guacamole-app
+              servicePort: 8080
+            path: /guacamole/

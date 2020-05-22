@@ -17,9 +17,30 @@ spec:
     spec:
       initContainers:
         - name: guacamole-init
-          image: busybox
-          command: ["/bin/sh", "-c", "--"]
-          args: ["while :; do :; done & kill -STOP $! && wait $!"]
+          image: d2iqshadowbq/guacd-helper:v1.1.0
+          #command: ["/bin/sh", "-c", "--"]
+          #args: ["while :; do :; done & kill -STOP $! && wait $!"]
+          imagePullPolicy: Always
+          env:
+            - name: MYSQL_PORT
+              value: "3306"
+            - name: MYSQL_HOSTNAME
+              value: "guacamole-db"
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole
+                  key: database
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole
+                  key: user_login
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole
+                  key: user_password
       containers:
         - name: guacamole-app
           image: guacamole/guacamole:1.1.0
