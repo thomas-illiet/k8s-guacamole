@@ -31,44 +31,26 @@ MariaDB (MySQL Clone): 10.5.3
 
 https://d2iq.com/solutions/ksphere/konvoy#request-free-trial
 
-`konvoy up -y`
+Enable you cluster: `konvoy up -y`
 
-## (Deprecated) Install required dependencies via orginal fork.
+### Install
 
-The Original Fork used Thomas Illiets setup. 
+`kubectl apply -f manifests`
 
-This Guacamole configuration uses 
+Example: https://a39306ab925214a18bbedd2ded635581-1473587611.us-east-1.elb.amazonaws.com/guacamole/guacamole/#/
 
-[cert-manager](https://github.com/thomas-illiet/k8s-infrastructure/tree/master/config/cert-manager)
-[ingress-nginx](https://github.com/thomas-illiet/k8s-infrastructure/tree/master/config/ingress-nginx)
+## Automatic Initializing the MySQL database
 
-configuration of these are stored in my 
+The initcontainer on `guacamole-app` automatically applies the standard schema, and default user `guacadmin`.
 
-[kubernetes infrastructure](https://github.com/thomas-illiet/k8s-infrastructure/) repository.
+## Troubleshooting
 
-## Initializing the MySQL database
+You can deploy pod  `manifest/90-guacd-helper-pod.yaml` which you can use to sql into the backend if needed.
 
-If your database is not already initialized with the Guacamole schema, you will need to do so prior to using Guacamole. A convenience script for generating the necessary SQL to do this is included in the Guacamole image.
-
-run this command in your kubernetes worker to generate a SQL script :
-
-kubectl exec -it guacamole-db-d9f4787d5-r4mm9 --namespace guacamole -- /bin/bash
-
-The initcontainer on `guacamole-app`:
 
 ```bash
-$> kubectl exec -it guacamole-app-7bbffc9b4c-fs5fv --namespace guacamole -c guacamole-init -- /bin/sh
-init-container $> 
-```
-
-```bash
-docker exec -i <APP CONTAINER ID> /opt/guacamole/bin/initdb.sh --mysql > /tmp/initdb.sql
-```
-
-And import `initdb.sql` to mariadb docker intance with the following command :
-
-```bash
-docker exec -i <DB CONTAINER ID> mysql -uguacamole -p<DB PASSWORD> guacamole < /tmp/test.sql
+$> kubectl exec -it guacamole-helper --namespace guacamole -- /bin/sh
+container $>  $$PROFIT$$
 ```
 
 ## Add Oauth2 to better protect your Guacamole instance
