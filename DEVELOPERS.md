@@ -12,3 +12,8 @@ docker push d2iqshadowbq/guacd-helper:v1.1.0
 ```shell
 docker run -it d2iqshadowbq/guacd-helper:v1.1.0 /bin/bash
 ```
+
+## TODO
+
+* Add Service Account and Bindings
+* Create Related HELM chart
