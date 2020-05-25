@@ -1,0 +1,16 @@
+.login-ui .login-dialog .logo {
+	background-image: url('app/ext/tempnamespace/images/logo-d2iq.png');
+	width: 9em;
+	-webkit-background-size: 9em auto;
+}
+
+div.login-ui {
+	background: #330072;
+	background-color: #330072;
+}
+
+.login-ui .login-dialog {
+	background-color: white;
+	box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.25);
+	border-radius: 15px;
+}

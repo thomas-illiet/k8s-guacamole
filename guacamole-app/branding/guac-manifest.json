@@ -1,0 +1,14 @@
+{
+       "guacamoleVersion": "*",
+       "name": "Tempname",
+       "namespace": "tempnamespace",
+       "translations": [
+              "translations/en.json"
+       ],
+       "css": [
+              "css/login-override.css"
+       ],
+       "resources": {
+              "images/logo-d2iq.png": "image/png"
+       }
+}
