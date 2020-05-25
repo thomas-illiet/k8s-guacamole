@@ -2,15 +2,9 @@
 
 ![banner](meta/k8s-guacamole-banner.png)
 
-Apache Guacamole is a clientless HTML5 web based remote desktop gateway that makes it easy to access remote servers and desktops through a web browser. It supports standard protocols like VNC, RDP, and SSH.
-
-In this repository, we are going to learn how to setup Guacamole web-based remote desktop access tool on Kubernetes server.
+[Apache Guacamole](https://guacamole.apache.org/releases/1.1.0/) 1.1.0 is a clientless HTML5 web based remote desktop gateway that makes it easy to access remote servers and desktops through a web browser. It supports standard protocols like VNC, RDP, and SSH.
 
 Kubernetes is fast developing and this deployment will target `kubernetes 1.16.x`.
-
-You can see below a simple demo of Guacamole :
-
-[![Watch the video](meta/k8s-guacamole-preview.png)](https://youtu.be/AjuHJHtd4zU)
 
 ## Image Usage
 

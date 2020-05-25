@@ -14,5 +14,5 @@ spec:
           - backend:
               serviceName: guacamole-app
               servicePort: 8080
-            path: /guacamole/
+            path: /workshop/
             # Im getting a https://a39306ab925214a18bbedd2ded635581-1473587611.us-east-1.elb.amazonaws.com/guacamole/guacamole/#/
