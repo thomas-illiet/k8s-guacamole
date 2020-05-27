@@ -43,9 +43,11 @@ spec:
                   key: user_password
       containers:
         - name: guacamole-app
-          image: d2iqshadowbq/guacamole-branded:1.1.0
+          image: d2iqshadowbq/guacamole-branded:v1.1.0
           imagePullPolicy: Always
           env:
+            - name: GUACAMOLE_HOME
+              value: "/opt/guacamole/skel/"
             - name: GUACD_HOSTNAME
               value: "guacamole-daemon"
             - name: GUACD_PORT

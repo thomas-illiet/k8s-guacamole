@@ -41,12 +41,15 @@ Example: https://a39306ab925214a18bbedd2ded635581-1473587611.us-east-1.elb.amazo
 
 The initcontainer on `guacamole-app` automatically applies the standard schema, and default user `guacadmin`.
 
-## Troubleshooting & Spiking Data
+## Troubleshooting & Spiking SQL Data
 
 You can deploy pod  `manifest/90-guacd-helper-pod.yaml` which you can use to sql into the backend if needed.
 
 
 ```bash
-$> kubectl exec -it guacamole-helper --namespace guacamole -- /bin/sh
-container $>  $$PROFIT$$
+$> kubectl cp guacamole.sql guacamole-helper:/home/d2iq --namespace guacamole
+$> kubectl exec -it guacamole-helper --namespace guacamole -- /bin/bash
+[d2iq@guacamole-helper /]$ cd ~
+[d2iq@guacamole-helper ~]$ mysql -h $MYSQL_HOSTNAME -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE < guacamole.sql
+[d2iq@guacamole-helper ~]$ $$PROFIT$$
 ```
