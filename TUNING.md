@@ -46,3 +46,4 @@ start_guacamole() {
 
 start_guacamole
 ```
+References: http://mail-archives.apache.org/mod_mbox/guacamole-user/201708.mbox/%3CSY3PR01MB1785DCBF811CF3CA8B932E70BAB60@SY3PR01MB1785.ausprd01.prod.outlook.com%3E
