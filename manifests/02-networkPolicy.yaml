@@ -2,11 +2,11 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: guacamole
-  namespace: netboot-guacamole
+  namespace: guacamole
 spec:
   podSelector:
     matchLabels:
       app: guacamole
       tier: frontend
   ingress:
-  -  from: []
+    - from: []

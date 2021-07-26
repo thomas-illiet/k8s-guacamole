@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guacamole-app
+  namespace: guacamole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: guacamole
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: guacamole
+        tier: frontend
+    spec:
+      initContainers:
+        - name: guacamole-init
+          image: d2iqshadowbq/guacd-helper:v1.1.0
+          #command: ["/bin/sh", "-c", "--"]
+          #args: ["while :; do :; done & kill -STOP $! && wait $!"]
+          imagePullPolicy: Always
+          env:
+            - name: MYSQL_PORT
+              value: "3306"
+            - name: MYSQL_HOSTNAME
+              value: "guacamole-db"
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole
+                  key: database
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole
+                  key: user_login
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole
+                  key: user_password
+      containers:
+        - name: guacamole-app
+          image: d2iqshadowbq/guacamole-branded:v1.1.0
+          imagePullPolicy: Always
+          env:
+            - name: GUACAMOLE_HOME
+              value: "/opt/guacamole/skel/"
+            - name: GUACD_HOSTNAME
+              value: "guacamole-daemon"
+            - name: GUACD_PORT
+              value: "4822"
+            - name: MYSQL_PORT
+              value: "3306"
+            - name: MYSQL_HOSTNAME
+              value: "guacamole-db"
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole
+                  key: database
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole
+                  key: user_login
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole
+                  key: user_password
+          ports:
+            - name: guacamole-app
+              containerPort: 8080
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "2.5Gi"
+              cpu: "2750m"

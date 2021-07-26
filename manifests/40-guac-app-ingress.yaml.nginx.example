@@ -2,21 +2,21 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: guacamole-ingress
-  namespace: netboot-guacamole
+  namespace: guacamole
   annotations:
     kubernetes.io/ingress.class: nginx
     certmanager.k8s.io/cluster-issuer: letsencrypt-prod
     #nginx.ingress.kubernetes.io/app-root: /guacamole
 spec:
   tls:
-  - hosts:
-    - sc6rffd3d5.netboot.fr
-    secretName: guacamole-netboot-fr-tls
+    - hosts:
+        - <dns_hostname>
+      secretName: <secret>
   rules:
-  - host: sc6rffd3d5.netboot.fr
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: guacamole-app
-          servicePort: 8080
+    - host: <dns_hostname>
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: guacamole-app
+              servicePort: 8080

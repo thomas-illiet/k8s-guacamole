@@ -1,0 +1,68 @@
+.login-ui .login-dialog .logo {
+	background-image: url('app/ext/tempnamespace/images/logo-d2iq.png');
+	width: 9em;
+	-webkit-background-size: 9em auto;
+	height: 180px;
+}
+
+div.login-ui {
+	background: #221944;
+	background-color: #221944;
+}
+
+.login-ui .login-dialog {
+	background-color: white;
+	box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.25);
+	border-radius: 15px;
+}
+
+.header {
+	background: rgba(34, 25, 68);
+	color: white;
+}
+
+.list-item:not(.selected) .caption:hover {
+	background: #4B3499;
+	color: white
+}
+
+.page-tabs .page-list li a[href]:hover,
+.section-tabs li a:hover {
+	background-color: #4B3499;
+	color: white
+}
+
+#filesystem-menu .header.breadcrumbs .breadcrumb:hover {
+	background-color: #4B3499;
+}
+
+#guac-menu #zoom-out:hover,
+#guac-menu #zoom-in:hover {
+	background: #4B3499;
+	color: white
+}
+
+.settings table.session-list tr.session:hover {
+	background: #4B3499;
+	color: white
+}
+
+.recent-connections .connection:hover {
+	background: #4B3499;
+	color: white
+}
+
+.menu-dropdown .menu-contents li a:hover {
+	background-color: #4B3499;
+	color: white
+}
+
+.list-item.selected {
+	background: #654fad;
+	color: white
+}
+
+.transfer .progress .bar {
+	background: #654fad;
+	color: white
+}
